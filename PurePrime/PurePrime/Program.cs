@@ -26,17 +26,17 @@ namespace PurePrime
         
     }
 
-    class Subset
-    {
-        List<int> subset = new List<int>();
-        public int Count { get; set; }
+    //class Subset
+    //{
+    //    List<int> subset = new List<int>();
+    //    public int Count { get; set; }
 
-    }
+    //}
 
 
     class Program
     {
-        static public List<Subset> SubsetCollection = new List<Subset>();
+        //static public List<Subset> SubsetCollection = new List<Subset>();
 
         static int index = 1;
         static long countPure = 0;
@@ -71,6 +71,15 @@ namespace PurePrime
 
             return;
         }
+
+
+        /// <summary>
+        /// 
+        /// Using DYNAMIC PROGRAMING TO QUICKLY FIND THEIR SOLUTION OF ALREADY CALCULATED SOLUTION.
+        /// 
+        /// </summary>
+        /// <param name="tc"></param>
+        /// <param name="outputPath"></param>
         static void SolveProblem(TestCase tc, string outputPath)
         {
 
@@ -78,12 +87,16 @@ namespace PurePrime
             ls_TestCases = tc.lsTestCases;
 
             List<PureNumber> lsResults = new List<PureNumber>();
-            //for (int number = 2; number < 10; ++number)
+            
             int testcase_id = 0;
+
             foreach (int number in ls_TestCases)
             {
+
                 countPure = 0;
+
                 ++testcase_id;
+
                 using (StreamWriter wr = new StreamWriter(outputPath, true))
                 {
                     PureNumber objectfound = lsResults.Find(x => x.getIndex() == number);
@@ -92,13 +105,18 @@ namespace PurePrime
                         CreateAllSubsetsCollection(number);
                         
                         long mod = countPure % 100003;
+
                         wr.WriteLine("Case #{0}: {1}", testcase_id, mod);
+
                         lsResults.Add(new PureNumber(number, mod));
+
                         Console.WriteLine("\nCase #{0}: {1}", testcase_id, mod);
                     }
                     else
                     {
+
                         wr.WriteLine("Case #{0}: {1}", testcase_id, objectfound.getValue());
+
                         Console.WriteLine("Case #{0}: {1}", testcase_id, objectfound.getValue());
                     }
 
@@ -110,6 +128,11 @@ namespace PurePrime
 
         }
 
+        /// <summary>
+        /// UNUSED - PRIME NUMBER CHECKER
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
         static bool IsPrime( long number )
         {
             for (long i = 2; i <= (number / 2) + 2; i++)
@@ -134,6 +157,13 @@ namespace PurePrime
 
         
         static List<PureNumber> PrimeList = new List<PureNumber>();
+
+        /// <summary>
+        /// NOT IN USE, UNUSED
+        /// 
+        /// CREATES LIST OF ALL PURE PRIME NUMBERS
+        /// 
+        /// </summary>
         static void CreatePurePrimList()
         {
             
@@ -169,7 +199,16 @@ namespace PurePrime
             }
         }
 
-        
+        /// <summary>
+        /// WE TRAVERSE TO ALL THE WAY BACK TO GET THE RANK AND FIND THE ELEMENT AND THEN
+        /// ITS RANK TO REACH 1
+        /// 
+        /// IF 1 IS LAST REACHED, THEN ITS PURE
+        /// 
+        /// </summary>
+        /// <param name="testcase_id"></param>
+        /// <param name="number"></param>
+        /// <returns></returns>
         private static bool PureNumber(int testcase_id, int number)
         {
 
@@ -196,7 +235,15 @@ namespace PurePrime
             return false;
         }
         
-
+        /// <summary>
+        /// HERE WE WILL CREATE ALL
+        /// POSSIBLE SUBSETS OF A GIVEN SET; 
+        /// TOTAL SUBSETS EQUAL TO 
+        /// 
+        /// [ 2 POW N ]
+        /// 
+        /// </summary>
+        /// <param name="number"></param>
         private static void CreateAllSubsetsCollection( int number )
         {
             //total subsets of a Sets are 2*power n
